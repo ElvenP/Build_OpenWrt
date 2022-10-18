@@ -10,7 +10,7 @@ git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lea
 git clone https://github.com/esirplayground/luci-theme-atmaterial-ColorIcon.git package/lean/luci-theme-atmaterial-ColorIcon
 
 
-#单独添加软件包https://github.com/ElvenP/Build_OpenWrt/blob/main/diy-part2.sh
+#单独添加软件包
 git clone https://github.com/lisaac/luci-app-dockerman package/dockerman
 git clone https://github.com/ElvenP/luci-app-onliner package/onliner
 git clone https://github.com/siwind/luci-app-wolplus package/luci-app-wolplus
