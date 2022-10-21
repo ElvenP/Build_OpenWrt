@@ -2,7 +2,7 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 
 # 删除自定义源默认的 argon 主题
-rm -rf package/lean/luci-theme-argon
+#rm -rf package/lean/luci-theme-argon
 
 # 拉取 主题
 #git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
