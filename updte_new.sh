@@ -89,6 +89,6 @@ if [[ -f /root/docker_data/xiaoya/proxy.txt ]] && [[ -s /root/docker_data/xiaoya
 	proxy_url=$(head -n1 /root/docker_data/xiaoya/proxy.txt)
        	docker run -d -p 5678:80 -p 2345:2345 -p 2346:2346 --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com" -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
 else
-	docker run -d -p 5678:80 -p 2345:2345 -p 2346:2346 -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
+	docker run -d -p 4835:80  -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
 fi	
 
