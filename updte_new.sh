@@ -62,7 +62,7 @@ localip=$(ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'
 if [ $1 ]; then
 if [ $1 == 'host' ]; then
 	if [ ! -s /root/docker_data/xiaoya/docker_address.txt ]; then
-		echo "http://$localip:6789" > /root/docker_data/xiaoya/docker_address.txt
+		echo "http://$localip:4836" > /root/docker_data/xiaoya/docker_address.txt
 	fi	
 	docker stop xiaoya-hostmode
 	docker rm xiaoya-hostmode
@@ -79,7 +79,7 @@ fi
 fi
 
 if [ ! -s /root/docker_data/xiaoya/docker_address.txt ]; then
-        echo "http://$localip:5678" > /root/docker_data/xiaoya/docker_address.txt
+        echo "http://$localip:4835" > /root/docker_data/xiaoya/docker_address.txt
 fi
 docker stop xiaoya
 docker rm xiaoya
@@ -87,7 +87,7 @@ docker rmi xiaoyaliu/alist:latest
 docker pull xiaoyaliu/alist:latest
 if [[ -f /root/docker_data/xiaoya/proxy.txt ]] && [[ -s /root/docker_data/xiaoya/proxy.txt ]]; then
 	proxy_url=$(head -n1 /root/docker_data/xiaoya/proxy.txt)
-       	docker run -d -p 5678:80 -p 2345:2345 -p 2346:2346 --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com" -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
+       	docker run -d -p 4835:80  --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com" -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
 else
 	docker run -d -p 4835:80  -v /root/docker_data/xiaoya:/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
 fi	
