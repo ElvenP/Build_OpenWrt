@@ -123,3 +123,9 @@ rc-service sing-box start
 echo "sing-box 已启动。"
 
 echo "sing-box 已成功安装和配置。监听端口为：$listen_port"
+
+# 查看 sing-box 状态 
+rc-service sing-box status
+
+
+
