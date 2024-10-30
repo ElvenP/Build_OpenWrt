@@ -22,6 +22,19 @@ server_ip=$(curl -s https://api.ipify.org)  # 获取当前服务器的 IP 地址
 # 获取国家代码
 country_code=$(curl -s "https://ipinfo.io/$server_ip/country")
 
+# 检查 jq 是否已安装，如果没有则安装
+if ! command -v jq >/dev/null 2>&1; then
+    echo "jq 未安装，正在安装..."
+    apk add jq
+    if [ $? -ne 0 ]; then
+        echo "安装 jq 失败，请检查你的包管理器设置。"
+        exit 1
+    fi
+    echo "jq 安装完成。"
+else
+    echo "jq 已安装，跳过安装步骤。"
+fi
+
 # 根据国家代码获取中文国家名称
 country_name=$(curl -s "https://restcountries.com/v3.1/alpha/$country_code" | jq -r '.[0].name.common')
 
