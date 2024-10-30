@@ -17,12 +17,16 @@ echo "已添加 Tsinghua 源地址。"
 apk add openssl sing-box curl
 echo "已安装 openssl 和 sing-box。"
 
-# 获取当前服务器的 IP 地址和国家
+# 获取当前服务器的 IP 地址
 server_ip=$(curl -s https://api.ipify.org)  # 获取当前服务器的 IP 地址
-country=$(curl -s "https://ipinfo.io/$server_ip/country")  # 获取国家代码
+# 获取国家代码
+country_code=$(curl -s "https://ipinfo.io/$server_ip/country")
+
+# 根据国家代码获取中文国家名称
+country_name=$(curl -s "https://restcountries.com/v3.1/alpha/$country_code" | jq -r '.[0].name.common')
 
 echo "当前服务器的 IP 地址是：$server_ip"
-echo "当前服务器所属国家：$country"
+echo "当前服务器所属国家：$country_name"
 
 # 设置默认路径
 default_certificate_path="/root/data/ssl/sing-box/server.crt"
@@ -160,7 +164,7 @@ rc-service sing-box start
 echo "sing-box 已启动。"
 
 # 输出 hysteria2 URL
-echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#自建+$country"
+echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#自建$country_name"
 
 # 查看 sing-box 状态
 rc-service sing-box status
