@@ -36,7 +36,13 @@ else
 fi
 
 # 根据国家代码获取中文国家名称
-country_name=$(curl -s "https://restcountries.com/v3.1/alpha/$country_code" | jq -r '.[0].name.common')
+country_name=$(curl -s "https://restcountries.com/v3.1/alpha/$country_code" | jq -r '.[0].translations.zho.common')
+
+# 检查是否成功获取中文国家名称
+if [ -z "$country_name" ]; then
+    echo "无法获取中文国家名称，使用国家代码：$country_code"
+    country_name="未知国家"
+fi
 
 echo "当前服务器的 IP 地址是：$server_ip"
 echo "当前服务器所属国家：$country_name"
