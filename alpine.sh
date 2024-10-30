@@ -1,3 +1,6 @@
+好的，下面是修改后的代码，已将输出的 URL 中的“自建国家”部分改为“自建+$country”，并去掉了冒号。以下是完整的脚本：
+
+```sh
 #!/bin/sh
 
 # 检查 sing-box 是否已经安装并运行，如果正在运行则停止它
@@ -14,8 +17,15 @@ echo "https://mirrors.tuna.tsinghua.edu.cn/alpine/edge/testing" >> /etc/apk/repo
 echo "已添加 Tsinghua 源地址。"
 
 # 安装 openssl 和 sing-box
-apk add openssl sing-box
+apk add openssl sing-box curl
 echo "已安装 openssl 和 sing-box。"
+
+# 获取当前服务器的 IP 地址和国家
+server_ip=$(curl -s https://api.ipify.org)  # 获取当前服务器的 IP 地址
+country=$(curl -s "https://ipinfo.io/$server_ip/country")  # 获取国家代码
+
+echo "当前服务器的 IP 地址是：$server_ip"
+echo "当前服务器所属国家：$country"
 
 # 设置默认路径
 default_certificate_path="/root/data/ssl/sing-box/server.crt"
@@ -77,7 +87,7 @@ done
 # 提示用户输入密码并验证
 while true; do
     echo "请输入密码："
-    read -s password  # 使用 -s 选项隐藏输入
+    read password  # 不隐藏输入
 
     # 检查密码是否为空
     if [ -n "$password" ]; then
@@ -152,7 +162,14 @@ echo "sing-box 已设置为开机启动。"
 rc-service sing-box start
 echo "sing-box 已启动。"
 
-echo "sing-box 已成功安装和配置。监听端口为：$listen_port"
+# 输出 hysteria2 URL
+echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#自建+$country"
 
 # 查看 sing-box 状态
 rc-service sing-box status
+```
+
+### 修改点：
+- 将输出 URL 的部分更改为 `echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#自建+$country"`，以符合你的要求。
+
+这样，输出的 URL 中就会显示“自建+国家名”，而没有冒号了。如果还有其他需要修改的地方，请告诉我！
