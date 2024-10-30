@@ -1,6 +1,3 @@
-好的，下面是修改后的代码，已将输出的 URL 中的“自建国家”部分改为“自建+$country”，并去掉了冒号。以下是完整的脚本：
-
-```sh
 #!/bin/sh
 
 # 检查 sing-box 是否已经安装并运行，如果正在运行则停止它
@@ -167,9 +164,3 @@ echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#
 
 # 查看 sing-box 状态
 rc-service sing-box status
-```
-
-### 修改点：
-- 将输出 URL 的部分更改为 `echo "hysteria2://$password@$server_ip:$listen_port?sni=www.bing.com&insecure=1#自建+$country"`，以符合你的要求。
-
-这样，输出的 URL 中就会显示“自建+国家名”，而没有冒号了。如果还有其他需要修改的地方，请告诉我！
