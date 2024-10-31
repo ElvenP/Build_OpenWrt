@@ -9,9 +9,16 @@ else
     echo "sing-box 未运行，准备进行安装。"
 fi
 
-# 添加 Tsinghua 的源地址
-echo "https://mirrors.tuna.tsinghua.edu.cn/alpine/edge/testing" >> /etc/apk/repositories
-echo "已添加 Tsinghua 源地址。"
+# 定义 Tsinghua 源地址
+tsinghua_repo="https://mirrors.tuna.tsinghua.edu.cn/alpine/edge/testing"
+
+# 检查是否已经添加 Tsinghua 源地址
+if grep -q "$tsinghua_repo" /etc/apk/repositories; then
+    echo "Tsinghua 源地址已经存在，跳过添加步骤。"
+else
+    echo "$tsinghua_repo" >> /etc/apk/repositories
+    echo "已添加 Tsinghua 源地址。"
+fi
 
 # 安装 openssl 和 sing-box
 apk add openssl sing-box curl
