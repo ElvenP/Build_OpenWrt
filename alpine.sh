@@ -114,19 +114,9 @@ while true; do
     fi
 done
 
-# 提示用户输入密码并验证
-while true; do
-    echo "请输入密码："
-    read password  # 不隐藏输入
-
-    # 检查密码是否为空
-    if [ -n "$password" ]; then
-        echo "密码已设置。"
-        break
-    else
-        echo "密码不能为空，请重新输入。"
-    fi
-done
+# 自动生成一个 UUID 作为密码
+password=$(uuidgen)  # 使用 uuidgen 生成唯一密码
+echo "自动生成的密码是：$password"
 
 # 提示用户输入 SOCKS 代理服务器信息
 echo "请输入 SOCKS 代理的服务器地址："
