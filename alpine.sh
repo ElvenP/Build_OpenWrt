@@ -114,6 +114,19 @@ while true; do
     fi
 done
 
+# 检查 uuidgen 是否可用，如果不可用则安装 util-linux
+if ! command -v uuidgen >/dev/null 2>&1; then
+    echo "uuidgen 未安装，正在安装 util-linux..."
+    apk add util-linux
+    if [ $? -ne 0 ]; then
+        echo "安装 util-linux 失败，请检查你的包管理器设置。"
+        exit 1
+    fi
+    echo "util-linux 安装完成，uuidgen 可用。"
+else
+    echo "uuidgen 已安装，跳过安装步骤。"
+fi
+
 # 自动生成一个 UUID 作为密码
 password=$(uuidgen)  # 使用 uuidgen 生成唯一密码
 echo "自动生成的密码是：$password"
